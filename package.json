@@ -1,0 +1,19 @@
+{
+  "name": "electron-music-player",
+  "version": "1.0.0",
+  "description": "An Electron Application",
+  "main": "main.js",
+  "scripts": {
+    "start": "nodemon --watch main.js --exec 'electron .'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Electron"
+  ],
+  "author": "wwk",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^6.0.9",
+    "nodemon": "^1.19.2"
+  }
+}
