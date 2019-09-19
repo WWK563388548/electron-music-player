@@ -12,12 +12,18 @@ app.on('ready', () => {
     }
   });
   mainWindow.loadFile('./ui/index.html'); // 导入html去显示ui
-  mainWindow.webContents.openDevTools(); //打开开发者工具
-  // 使用ipcMain接收从渲染进程发送过来的数据
-  ipcMain.on('message', (event, arg) => {
-    console.log('received message from renderer process: ', arg);
-    // 从主进程作出回复
-    // 也可以使用mainWindow来代替event.sender
-    event.sender.send('reply', 'hello from main');
+  // mainWindow.webContents.openDevTools(); //打开开发者工具
+  ipcMain.on('openAddMusicWindow', () => {
+      console.log("openAddMusicWindow");
+      const addMusicsWindow = new BrowserWindow({
+        width: 500,
+        height: 400,
+        parent: mainWindow,
+        webPreferences: {
+          nodeIntegration: true, // nodeIntegration设置为true代表可以使用nodejs的API
+        }
+      });
+      addMusicsWindow.loadFile('./ui/add.html');
   });
+
 });
