@@ -35,7 +35,7 @@ app.on('ready', () => {
             parent: mainWindow,
         }, './ui/add.html');
     });
-    ipcMain.on('openMusicFile', () => {
+    ipcMain.on('openMusicFile', (event) => {
         console.log("openMusicFile");
         dialog.showOpenDialog(
             {
@@ -46,6 +46,9 @@ app.on('ready', () => {
             }, 
             (files) => {
                 console.log("files", files);
+                if(files){
+                    event.sender.send('selectedFiles', files);
+                }
             }
         );
     });
