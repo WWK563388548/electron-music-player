@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 
 // 封装BrowserWindow类
 class AppWindow extends BrowserWindow{
@@ -25,15 +25,29 @@ class AppWindow extends BrowserWindow{
 // BrowserWindow只能在主进程中使用
 // 创建窗口
 app.on('ready', () => {
-  const mainWindow = new AppWindow({}, './ui/index.html');
-  // mainWindow.webContents.openDevTools(); //打开开发者工具
-  ipcMain.on('openAddMusicWindow', () => {
-      console.log("openAddMusicWindow");
-      const addMusicsWindow = new AppWindow({
-        width: 500,
-        height: 400,
-        parent: mainWindow,
-      }, './ui/add.html');
-  });
-
+    const mainWindow = new AppWindow({}, './ui/index.html');
+    // mainWindow.webContents.openDevTools(); //打开开发者工具
+    ipcMain.on('openAddMusicWindow', () => {
+        console.log("openAddMusicWindow");
+        const addMusicsWindow = new AppWindow({
+            width: 500,
+            height: 400,
+            parent: mainWindow,
+        }, './ui/add.html');
+    });
+    ipcMain.on('openMusicFile', () => {
+        console.log("openMusicFile");
+        dialog.showOpenDialog(
+            {
+                properties: ['openFile', 'multiSelections'],
+                filters: [
+                    { name: 'music', extensions: ['mp3'] },
+                ]
+            }, 
+            (files) => {
+                console.log("files", files);
+            }
+        );
+    });
+  
 });
