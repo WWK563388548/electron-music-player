@@ -17,6 +17,7 @@
     "nodemon": "^1.19.2"
   },
   "dependencies": {
-    "electron-store": "^5.0.0"
+    "electron-store": "^5.0.0",
+    "uuid": "^3.3.3"
   }
 }
