@@ -1,23 +1,8 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
-const Store = require('electron-store');
+const MusicDataStore = require('./data/MusicDataStore');
 
-const store = new Store();
 
-store.set('unicorn', '🦄');
-console.log(store.get('unicorn'));
-//=> '🦄'
-
-// Use dot-notation to access nested properties
-store.set('foo.bar', true);
-console.log(store.get('foo'));
-//=> {bar: true}
-
-store.delete('unicorn');
-console.log(store.get('unicorn'));
-//=> undefined
-
-console.log(app.getPath('userData'));
-
+const myMusicDataStore = new MusicDataStore({'name': 'Music Data'});
 // 封装BrowserWindow类
 class AppWindow extends BrowserWindow{
     constructor(config, fileLocation){
@@ -53,6 +38,12 @@ app.on('ready', () => {
             parent: mainWindow,
         }, './ui/add.html');
     });
+    ipcMain.on('importMusicFileToTracks', (event, dataTracks) => {
+        console.log('dataTracks', dataTracks);
+        const processedTracks = myMusicDataStore.addTracks(dataTracks).getTracks();
+        console.log('processedTracks', processedTracks);
+    });
+
     ipcMain.on('openMusicFile', (event) => {
         console.log("openMusicFile");
         dialog.showOpenDialog(
