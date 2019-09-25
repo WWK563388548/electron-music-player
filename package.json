@@ -15,5 +15,8 @@
   "devDependencies": {
     "electron": "^6.0.9",
     "nodemon": "^1.19.2"
+  },
+  "dependencies": {
+    "electron-store": "^5.0.0"
   }
 }
