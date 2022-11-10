@@ -13,7 +13,7 @@
   "author": "wwk",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^6.0.9",
+    "electron": "^18.3.7",
     "nodemon": "^1.19.2"
   },
   "dependencies": {
